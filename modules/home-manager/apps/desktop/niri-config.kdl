@@ -29,7 +29,7 @@ cursor {
 
 layout {
   // 窗口之间的间距，单位是逻辑像素。
-  gaps 8
+  gaps 5
 
   // 聚焦屏幕外的列时不强制居中，保留 niri 的横向浏览感。
   center-focused-column "never"
