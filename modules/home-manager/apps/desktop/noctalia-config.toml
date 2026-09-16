@@ -1,0 +1,123 @@
+[bar.default]
+margin_ends = 0
+start = [ "launcher", "wallpaper", "workspaces", "spacer_2", "lyrics" ]
+
+[location]
+address = "chongqing,china"
+
+[lockscreen_widgets]
+enabled = false
+schema_version = 2
+widget_order = [ "lockscreen-login-box@eDP-1" ]
+
+    [lockscreen_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@eDP-1"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 877.5
+    cy = 889.02703857421875
+    output = "eDP-1"
+    placement_height = 1097.0
+    placement_width = 1755.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@eDP-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+[plugin_settings."h465855hgg/lyrics"]
+lyrics_sources = [ "netease", "splayer", "qqmusic", "lrclib", "kugou", "qishui", "apple_music", "spotify", "musixmatch" ]
+splayer_api_url = "http://127.0.0.1:25883"
+
+[plugins]
+enabled = [ "h465855hgg/lyrics" ]
+
+[shell]
+external_ip_enabled = true
+niri_overview_type_to_launch_enabled = true
+panel_anchor_bar = "default"
+screen_time_enabled = true
+
+    [shell.launcher]
+    show_app_actions = true
+
+    [shell.panel]
+    clipboard_placement = "attached"
+    clipboard_position = "auto"
+    launcher_position = "auto"
+    open_near_click_clipboard = true
+    open_near_click_control_center = true
+    open_near_click_launcher = true
+    open_near_click_session = true
+    open_near_click_wallpaper = true
+    transparency_mode = "soft"
+
+    [shell.screen_corners]
+    size = 35
+
+    [shell.session]
+    grid = true
+    grid_columns = 2
+
+[theme]
+builtin = "Catppuccin"
+community_palette = "ADW"
+mode = "dark"
+source = "builtin"
+wallpaper_scheme = "m3-rainbow"
+
+[wallpaper.automation]
+enabled = true
+
+[wallpaper.default]
+path = "/home/wenzhengcheng/图片/wallhaven-w5l7j7.jpg"
+
+[wallpaper.last]
+path = "/home/wenzhengcheng/图片/wallhaven-w5l7j7.jpg"
+
+[wallpaper.monitors.eDP-1]
+path = "/home/wenzhengcheng/图片/wallhaven-w5l7j7.jpg"
+
+[widget.brightness.actions]
+scroll_down = "brightness-up"
+scroll_up = "brightness-down"
+
+[widget.clock]
+anchor = true
+
+[widget.lyrics]
+display_mode = "lyrics"
+double_line = false
+hide_when_no_lyrics = true
+hide_when_paused = true
+show_cover = false
+show_glyph = false
+text_alignment = "center"
+type = "h465855hgg/lyrics:lyrics"
+
+[widget.media]
+show_progress = true
+
+[widget.spacer_2]
+type = "spacer"
+
+[widget.volume.actions]
+scroll_down = "volume-up"
+scroll_up = "volume-down"

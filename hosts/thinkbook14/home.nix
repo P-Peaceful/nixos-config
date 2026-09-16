@@ -1,0 +1,21 @@
+{
+  imports = [
+    ../../modules/home-manager/base.nix
+    ../../modules/home-manager/packages/base.nix
+    ../../modules/home-manager/packages/flatpak.nix
+    ../../modules/home-manager/packages/development.nix
+    ../../modules/home-manager/apps/shell/fish
+    ../../modules/home-manager/apps/shell/starship
+    ../../modules/home-manager/apps/input-method/fcitx5
+    ../../modules/home-manager/apps/network/proxy.nix
+    ../../modules/home-manager/apps/browser
+    ../../modules/home-manager/apps/desktop/noctalia.nix
+    ../../modules/home-manager/apps/desktop/niri.nix
+    ../../modules/home-manager/apps/editor/neovim.nix
+    ../../modules/home-manager/apps/social/music.nix
+    ../../modules/home-manager/apps/social/wechat.nix
+    ../../modules/home-manager/apps/vcs/git
+    ../../modules/home-manager/apps/terminal/kitty
+    ../../modules/home-manager/apps/tools.nix
+  ];
+}

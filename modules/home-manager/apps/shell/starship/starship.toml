@@ -1,0 +1,46 @@
+# Starship：简洁的 Catppuccin Mocha 风格提示符。
+add_newline = false
+command_timeout = 1000
+palette = "catppuccin_mocha"
+format = "$directory$git_branch$git_status$python$rust$nodejs$cmd_duration$line_break$character"
+
+[character]
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"
+
+[directory]
+style = "bold blue"
+truncation_length = 3
+truncate_to_repo = false
+
+[git_branch]
+symbol = "git:"
+style = "bold mauve"
+
+[git_status]
+style = "bold peach"
+format = "([$all_status$ahead_behind]($style) )"
+
+[python]
+symbol = "py:"
+style = "bold yellow"
+
+[rust]
+symbol = "rs:"
+style = "bold red"
+
+[nodejs]
+symbol = "js:"
+style = "bold green"
+
+[cmd_duration]
+min_time = 2000
+format = "took [$duration](bold yellow) "
+
+[palettes.catppuccin_mocha]
+blue = "#89B4FA"
+green = "#A6E3A1"
+yellow = "#F9E2AF"
+red = "#F38BA8"
+mauve = "#CBA6F7"
+peach = "#FAB387"

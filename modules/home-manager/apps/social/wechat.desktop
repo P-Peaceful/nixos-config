@@ -1,0 +1,13 @@
+[Desktop Entry]
+Name=WeChat
+Name[zh_CN]=微信
+Comment=WeChat Desktop Client
+Comment[zh_CN]=微信桌面客户端
+Exec=env GTK_IM_MODULE=fcitx QT_IM_MODULE=fcitx SDL_IM_MODULE=fcitx XMODIFIERS=@im=fcitx QT_QPA_PLATFORM=xcb wechat -- %U
+Icon=wechat
+Terminal=false
+Type=Application
+Categories=Network;InstantMessaging;
+StartupWMClass=wechat
+MimeType=x-scheme-handler/weixin;
+Keywords=WeChat;微信;

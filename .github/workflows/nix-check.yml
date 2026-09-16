@@ -1,0 +1,29 @@
+name: NixOS Check
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  check:
+    name: Check NixOS Flake
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Install Nix
+        uses: DeterminateSystems/determinate-nix-action@v3
+
+      # 仓库没有 flake.lock 时，在 CI 中临时生成。
+      # 不会提交回仓库。
+      - name: Generate flake lock
+        run: nix flake lock
+
+      - name: Check NixOS Flake
+        run: |
+          nix flake check \
+            --no-build \
+            --show-trace

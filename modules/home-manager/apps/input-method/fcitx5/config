@@ -1,0 +1,14 @@
+# Fcitx5 全局行为：启动后默认激活输入法，并使用 Ctrl+Space 切换。
+[Hotkey]
+EnumerateWithTriggerKeys=True
+ModifierOnlyKeyTimeout=250
+
+[Hotkey/TriggerKeys]
+0=Control+space
+
+[Behavior]
+ActiveByDefault=True
+ShareInputState=No
+PreeditEnabledByDefault=True
+ShowInputMethodInformation=True
+ShowInputMethodInformationWhenSwitching=True

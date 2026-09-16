@@ -1,0 +1,18 @@
+# 雾凇拼音用户覆盖。
+# 官方配置通过 rime_ice_suggestion.yaml 引入；该文件由 NixOS 的
+# fcitx5-rime + rime-ice 共享数据包提供。
+patch:
+  __include: rime_ice_suggestion:/
+
+  # Caps Lock 仅切换大小写；中英文切换使用 Fcitx5 的 Ctrl+Space。
+  ascii_composer/good_old_caps_lock: true
+  ascii_composer/switch_key/Caps_Lock: noop
+
+  # 候选词窗口使用横向布局，每页显示 8 个候选词。
+  menu/page_size: 8
+
+  # 使用逗号/句号翻页，同时保留原有的中文标点输入习惯。
+  __patch:
+    key_binder/bindings/+:
+      - { when: paging, accept: comma, send: Page_Up }
+      - { when: has_menu, accept: period, send: Page_Down }
