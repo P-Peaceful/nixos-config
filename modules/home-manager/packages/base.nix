@@ -8,6 +8,7 @@
     tree
     vim
     wget
+    fastfetch
   ];
 }
 
