@@ -3,7 +3,7 @@ name: NixOS Check
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   check:
