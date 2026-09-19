@@ -1,0 +1,14 @@
+keys:
+  # 你自己的管理员密钥，用于编辑 secrets
+  - &admin age1rxc2wa9v8rxc7mhy6m3ercql4f0d09lyhptgezrvsgwup0e2gcjq6k3ytq
+
+  # 各设备用于自动解密
+  - &thinkbook14 age1pzn520m9k6ttpzjw6dvae33hyzf9p0knpqwxmhxgd9d5xtzc4q9sfkzmmu
+    # 此公钥必须与目标设备上的私钥对应：
+    # sudo age-keygen -y /var/lib/sops-nix/key.txt
+creation_rules:
+  - path_regex: ^secrets\.yaml$
+    key_groups:
+      - age:
+          - *admin
+          - *thinkbook14

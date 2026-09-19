@@ -18,7 +18,7 @@
 5. 所有 NixOS/Home Manager 核心选项以 26.05 分支为准。
 6. 第三方模块必须通过 flake input 锁定，并在 README 中明确其来源与版本边界。
 
-这是单用户配置，不引入多用户抽象。每台设备拥有自己的模块组合，设备文件同时决定系统模块和该用户的 Home Manager 模块；不设置跨设备的统一装配入口。
+这是单用户配置，不引入多用户抽象。每台设备拥有自己的模块组合，设备文件同时决定系统模块和该用户的 Home Manager 模块；flake 通过共享的 `mkHost` 装配函数复用公共依赖和 Home Manager 集成逻辑。
 
 ## 版本与依赖策略
 
@@ -323,13 +323,13 @@ host
 
 ## Flake 输出规划
 
-flake.nix 后续实现时只提供系统输出：
+flake.nix 提供系统输出；每个系统输出内部集成对应设备的 Home Manager：
 
 ~~~text
 nixosConfigurations.<hostname>    # 设备系统 + 内嵌 Home Manager
 ~~~
 
-实际激活通过对应的 nixosConfigurations.<hostname> 完成。各设备独立装配，flake 不提供跨设备的统一 wrapper、mk-host 生成器或额外的 standalone Home Manager 入口。
+实际激活通过对应的 nixosConfigurations.<hostname> 完成。`mkHost` 只负责复用公共模块、用户参数和 Home Manager 接入；每台设备仍通过自己的 host 模块和 `home.nix` 决定具体配置。flake 不提供额外的 standalone Home Manager 入口。
 
 通过 home-manager.extraSpecialArgs 将 inputs、主机名和少量公共参数传入该设备的 Home Manager 配置，而不是在模块中隐式读取路径或使用 builtins.getEnv。
 

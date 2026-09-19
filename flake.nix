@@ -18,34 +18,63 @@
 
     # Declarative Flatpak management; pin the latest stable nix-flatpak release.
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
-  };
-
-  outputs = inputs@{ nixpkgs, home-manager, nix-flatpak, ... }: {
-    nixosConfigurations.thinkbook14 = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      specialArgs = { inherit inputs; };
-
-      modules = [
-        ./hosts/thinkbook14
-        nix-flatpak.nixosModules.nix-flatpak
-        home-manager.nixosModules.home-manager
-
-        {
-          home-manager = {
-            useGlobalPkgs = true;
-            useUserPackages = true;
-            backupFileExtension = "hm-backup";
-            extraSpecialArgs = { inherit inputs; };
-
-            users.wenzhengcheng = {
-              imports = [
-                nix-flatpak.homeManagerModules.nix-flatpak
-                ./hosts/thinkbook14/home.nix
-              ];
-            };
-          };
-        }
-      ];
+    # 加密
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
+
+  outputs = inputs@{ nixpkgs, home-manager, nix-flatpak, sops-nix, ... }:
+    let
+      system = "x86_64-linux";
+      userName = "wenzhengcheng";
+
+      commonModules = [
+        ./modules/security/sops
+        nix-flatpak.nixosModules.nix-flatpak
+        home-manager.nixosModules.home-manager
+        sops-nix.nixosModules.sops
+      ];
+
+      mkHost = {
+        hostname,
+        hostModules,
+        homeModule,
+      }:
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+
+          specialArgs = {
+            inherit inputs userName hostname;
+          };
+
+          modules = hostModules ++ commonModules ++ [
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                backupFileExtension = "hm-backup";
+                extraSpecialArgs = {
+                  inherit inputs userName hostname;
+                };
+
+                users.${userName} = {
+                  imports = [
+                    nix-flatpak.homeManagerModules.nix-flatpak
+                    homeModule
+                  ];
+                };
+              };
+            }
+          ];
+        };
+    in
+    {
+      nixosConfigurations.thinkbook14 = mkHost {
+        hostname = "thinkbook14";
+        hostModules = [ ./hosts/thinkbook14 ];
+        homeModule = ./hosts/thinkbook14/home.nix;
+      };
+    };
 }

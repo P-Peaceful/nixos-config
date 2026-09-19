@@ -95,7 +95,28 @@
         "nix-flatpak": "nix-flatpak",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
-        "noctalia": "noctalia"
+        "noctalia": "noctalia",
+        "sops-nix": "sops-nix"
+      }
+    },
+    "sops-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1789815532,
+        "narHash": "sha256-/Ql9UE21iDwOU/JdPV20yZtaMpGf+iD2EhIA1aAi540=",
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "rev": "166fc0d3f4fcd0dfc9af102ba8e85fa5dd04e5f7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "type": "github"
       }
     }
   },
