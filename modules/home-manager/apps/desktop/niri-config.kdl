@@ -35,7 +35,7 @@ layout {
   center-focused-column "never"
 
   // 新窗口默认占屏幕约一半宽度。
-  default-column-width { proportion 0.5; }
+  default-column-width { proportion 1.0; }
 
   // Noctalia 官方 niri 集成方案：让 Noctalia 壁纸在所有工作区背后可见。
   // Noctalia 默认 backdrop 关闭，因此这里采用官方的固定壁纸方案。

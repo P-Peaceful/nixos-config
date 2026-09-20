@@ -31,6 +31,7 @@
           QT_QPA_PLATFORM = "xcb";
           # 不要把 NixOS 主机的 Qt 插件搜索路径带进 Flatpak 沙箱。
           QT_PLUGIN_PATH = "";
+          TZ = "Asia/Shanghai";
         };
       };
     };

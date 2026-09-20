@@ -1,23 +1,28 @@
-{ pkgs, ... }:
-
+{ inputs, pkgs, ... }:
+let
+  pkgs-unstable = import inputs.nixpkgs-unstable {
+    system = pkgs.system;
+    config.allowUnfree = true;
+  };
+in
 {
-  home.packages = with pkgs; [
-    gcc
-    gnumake
+  home.packages = [
+    pkgs.gcc
+    pkgs.gnumake
     
-    go
-    jdk
-    maven3
-    jetbrains.datagrip
-    jetbrains.goland
-    jetbrains.idea
+    pkgs.go
+    pkgs.jdk
+    pkgs.maven3
+    pkgs-unstable.jetbrains.datagrip
+    pkgs-unstable.jetbrains.goland
+    pkgs-unstable.jetbrains.idea
 
-    pkg-config
-    vscode
-    python3
+    pkgs.pkg-config
+    pkgs.vscode
+    pkgs.python3
 
-    nodejs_24
-    pnpm_11
+    pkgs.nodejs_24
+    pkgs.pnpm_11
 
   ];
 }
