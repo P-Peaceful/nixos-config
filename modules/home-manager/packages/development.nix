@@ -7,6 +7,7 @@
     
     go
     jdk
+    maven3
     jetbrains.datagrip
     jetbrains.goland
     jetbrains.idea
