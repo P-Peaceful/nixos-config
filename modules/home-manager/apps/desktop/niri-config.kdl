@@ -78,6 +78,11 @@ window-rule {
   match app-id=r#"firefox$"# title="^Picture-in-Picture$"
   open-floating true
 }
+// chrome 的画中画窗口默认浮动。
+window-rule {
+  match app-id=r#"google-chrome$"# title="^Picture-in-Picture$"
+  open-floating true
+}
 
 spawn-at-startup "noctalia"
 // 允许 Noctalia 的通知操作和窗口激活请求正常工作。
@@ -208,6 +213,7 @@ binds {
   XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
 
   // ---------- 截图和特殊状态 ----------
+  Mod+F1 { spawn "mark-shot"; }
   Print { screenshot; }
   Ctrl+Print { screenshot-screen; }
   Alt+Print { screenshot-window; }

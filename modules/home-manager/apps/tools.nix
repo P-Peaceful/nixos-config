@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 
 {
   home.packages = with pkgs; [
@@ -11,5 +11,8 @@
     wl-clipboard
     # nix 语言格式化
     nixfmt
+
+    inputs.mark-shot.packages.${pkgs.stdenv.hostPlatform.system}.default
+
   ];
 }
