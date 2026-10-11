@@ -60,7 +60,7 @@
   users.users.wenzhengcheng = {
     isNormalUser = true;
     description = "wenzhengcheng";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     shell = pkgs.fish;
   };
 
