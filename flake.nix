@@ -28,9 +28,19 @@
       url = "github:jswysnemc/mark-shot";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    codex-desktop-linux.url = "github:ilysenko/codex-desktop-linux";
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, nix-flatpak, sops-nix, ... }:
+  outputs =
+    inputs@{
+      nixpkgs,
+      home-manager,
+      nix-flatpak,
+      sops-nix,
+      codex-desktop-linux,
+      ...
+    }:
     let
       system = "x86_64-linux";
       userName = "wenzhengcheng";
@@ -42,11 +52,12 @@
         sops-nix.nixosModules.sops
       ];
 
-      mkHost = {
-        hostname,
-        hostModules,
-        homeModule,
-      }:
+      mkHost =
+        {
+          hostname,
+          hostModules,
+          homeModule,
+        }:
         nixpkgs.lib.nixosSystem {
           inherit system;
 
@@ -54,25 +65,29 @@
             inherit inputs userName hostname;
           };
 
-          modules = hostModules ++ commonModules ++ [
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                backupFileExtension = "hm-backup";
-                extraSpecialArgs = {
-                  inherit inputs userName hostname;
-                };
+          modules =
+            hostModules
+            ++ commonModules
+            ++ [
+              {
+                home-manager = {
+                  useGlobalPkgs = true;
+                  useUserPackages = true;
+                  backupFileExtension = "hm-backup";
+                  extraSpecialArgs = {
+                    inherit inputs userName hostname;
+                  };
 
-                users.${userName} = {
-                  imports = [
-                    nix-flatpak.homeManagerModules.nix-flatpak
-                    homeModule
-                  ];
+                  users.${userName} = {
+                    imports = [
+                      nix-flatpak.homeManagerModules.nix-flatpak
+                      codex-desktop-linux.homeManagerModules.default
+                      homeModule
+                    ];
+                  };
                 };
-              };
-            }
-          ];
+              }
+            ];
         };
     in
     {

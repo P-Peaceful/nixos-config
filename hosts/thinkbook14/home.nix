@@ -17,5 +17,6 @@
     ../../modules/home-manager/apps/vcs/git
     ../../modules/home-manager/apps/terminal/kitty
     ../../modules/home-manager/apps/tools.nix
+    ../../modules/home-manager/apps/ai
   ];
 }

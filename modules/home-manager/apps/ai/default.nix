@@ -1,0 +1,5 @@
+{
+  imports = [
+    ./codex-desktop.nix
+  ];
+}
