@@ -1,0 +1,9 @@
+# 首次激活的全局默认版本，可通过 mise use -g 修改。
+# 项目的 mise.toml 优先于全局默认版本。
+[tools]
+node = "22"
+python = "3.13"
+go = "1.26"
+java = "25"
+pnpm = "11"
+maven = "3.9"

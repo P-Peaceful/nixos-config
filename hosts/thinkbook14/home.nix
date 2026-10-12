@@ -4,6 +4,7 @@
     ../../modules/home-manager/packages/base.nix
     ../../modules/home-manager/packages/flatpak.nix
     ../../modules/home-manager/packages/development.nix
+    ../../modules/home-manager/apps/development/mise
     ../../modules/home-manager/apps/shell/fish
     ../../modules/home-manager/apps/shell/starship
     ../../modules/home-manager/apps/input-method/fcitx5

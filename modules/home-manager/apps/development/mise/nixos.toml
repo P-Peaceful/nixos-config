@@ -1,0 +1,3 @@
+[settings]
+# NixOS 使用 nix-ld 运行预编译工具，避免默认从源码编译。
+all_compile = false

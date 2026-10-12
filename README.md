@@ -201,6 +201,55 @@ Fish 是当前唯一的默认交互 Shell，系统侧通过 `users.users.wenzhen
 
 Starship 只负责提示符外观，不是终端模拟器或 Shell。它由 `programs.starship` 启用，原生配置文件放在 `modules/home-manager/apps/shell/starship/starship.toml`。Bash 保留用于脚本兼容，不再启用 Zsh。
 
+### mise 多版本开发环境
+
+`modules/home-manager/apps/development/mise/` 安装 mise 并接入 Fish、Bash。
+通过 `home.sessionPath` 把 `~/.local/share/mise/shims` 加入登录会话 PATH，
+让从桌面启动的 IDEA 和 Git 钩子也能按项目查找 mise 工具。修改后需要重新登录并重启 IDE；
+IDE 中固定配置的解释器路径仍需单独修改。安装工具后可运行 `mise reshim` 重新生成 shims。
+系统侧的 `modules/nixos/apps/nix-ld.nix` 提供通用 Linux 二进制所需的加载器和共享库，
+mise 的 `all_compile = false` 让语言运行时优先使用预编译版本。
+
+首次激活时，全局配置 `~/.config/mise/config.toml` 初始化为 Node.js 22、Python 3.13、
+Go 1.26、Java Temurin 21、pnpm 11 和 Maven 3.9。这些是版本系列，安装时解析到对应系列的版本。
+该文件保持可写，已有文件不会被覆盖，后续重建也不会重置手动修改。
+`nixos.toml` 作为只读的 `~/.config/mise/conf.d/10-nixos.toml` 维护兼容性设置。
+开发环境不再通过 `home.packages` 直接安装 Go、JDK、Python、Node.js、pnpm 和 Maven，
+统一由 mise 管理。IDE 等应用的 Nix 依赖仍由 Nix 管理，IDE 的项目 SDK/解释器需要选择 mise 安装路径。
+
+应用系统配置后，重新登录以加载 nix-ld 环境变量，再安装默认运行时：
+
+~~~sh
+sudo nixos-rebuild switch --flake path:.#thinkbook14
+# 重新登录，然后运行：
+mise install
+mise ls
+mise doctor
+~~~
+
+设置全局版本、为项目选择版本、临时运行其他版本：
+
+~~~sh
+mise use -g node@22 python@3.13 go@1.26 java@temurin-21 pnpm@11 maven@3.9
+# 在项目目录内执行，写入项目 mise.toml，并安装对应版本：
+mise use node@22 python@3.12
+# 已有 mise.toml 的可信项目：
+mise trust
+mise install
+# 单次运行，不改变项目或全局默认版本：
+mise exec node@22 -- node --version
+~~~
+
+进入项目目录时 Fish/Bash 会自动切换版本。建议将项目 `mise.toml` 提交到版本控制；
+需要精确复现时使用完整版本号。IDE 的 SDK/解释器可用 `mise where java`、
+`mise which python`、`mise which node` 查询；非交互脚本可通过 `mise exec -- <命令>` 使用选定环境。
+已有全局配置不会自动补充 Maven，迁移时运行 `mise use -g maven@3.9`，再执行 `mise install` 和 `mise reshim`。
+Maven 构建可通过 `mise exec -- mvn ...` 使用 mise 选定的 Java；也可使用项目的 Maven Wrapper。
+额外的原生库依赖可以按项目放入 Nix devShell。
+
+参考：[mise 配置](https://mise.jdx.dev/configuration)、
+[NixOS 安装说明](https://mise.jdx.dev/installing-mise.html#nix)。
+
 ## 两套桌面 profile
 
 ### 桌面会话与应用归属
