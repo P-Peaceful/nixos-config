@@ -84,7 +84,7 @@ window-rule {
   open-floating true
 }
 
-spawn-at-startup "noctalia"
+spawn-at-startup "mise" "exec" "--" "noctalia"
 // 允许 Noctalia 的通知操作和窗口激活请求正常工作。
 debug {
   honor-xdg-activation-with-invalid-serial

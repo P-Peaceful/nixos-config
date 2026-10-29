@@ -9,6 +9,7 @@
     vim
     wget
     fastfetch
+    jq
   ];
 }
 
